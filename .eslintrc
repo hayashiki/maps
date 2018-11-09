@@ -1,0 +1,24 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+      "browser": true,
+      "jest": true
+    },
+    "extends": [
+      "airbnb",
+      "plugin:css-modules/recommended"
+    ],
+    "plugins": [
+      "css-modules"
+    ],
+    "rules": {
+      # We don't care about multiple function arguments being on new lines. Just be consistent
+      "function-paren-newline": ["error", "consistent"],
+      # We don't care about multiple object keys being on new lines. Just be consistent
+      "object-curly-newline": ["error", { "consistent": true }],
+      # We don't care how you destrucure your props in React components
+      "react/destructuring-assignment": 0,
+      # We prefer ".js" file names to ".jsx"
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    }
+}

@@ -1,0 +1,147 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  activerecord:
+    attributes:
+      entity:
+        name: Entity Name
+        onboarding_status: Onboarding Status
+      futures_month:
+        crop_year: Crop Year
+        current_month: Current Month
+        futures_month: Futures Month
+        futures_year: Futures Year
+      user:
+        cell_phone: Cell Phone Number
+        city: City
+        created_at: Signed Up
+        current_sign_in_at: Last Sign In
+        demo_account: Demo Account
+        email: Email Address
+        entity_acres: Total Acres
+        entity_name: Entity Name
+        name: Full Name
+        password: Password
+        sign_in_count: Signins
+        state: State
+        street_address: Street Address
+        stripe_customer_id: Stripe Customer ID
+        zip: Zip Code
+    models:
+      crop:
+        one: Futures Crop
+        other: Futures Crops
+  # Page titles based on controller/action
+  # @see https://github.com/calebthompson/title
+  titles:
+    application: Harvest Profit - Farm Management Software and Courses
+    applications:
+      index: Applications
+    authentication:
+      passwords:
+        create: Reset Your Password
+        new: Reset Your Password
+      registrations:
+        new: Sign up for a Harvest Profit Account
+      sessions:
+        new: Sign in to Harvest Profit
+    articles:
+      index: All Articles
+    blogelator:
+      posts:
+        index: Harvest Profit Blog
+    contracts:
+      index: Contracts/Hedges
+      basis:
+        contracts:
+          create: New Basis Contract
+          edit: Edit Basis Contract
+          new: New Basis Contract
+          update: Edit Basis Contract
+      cash_sale:
+        contracts:
+          create: New Cash Sale
+          edit: Edit Cash Sale
+          new: New Cash Sale
+          update: Edit Cash Sale
+      forward:
+        contracts:
+          create: New Forward Contract
+          edit: Edit Forward Contract
+          new: New Forward Contract
+          update: Edit Forward Contract
+      futures:
+        contracts:
+          create: New Futures Contract
+          edit: Edit Futures Contract
+          new: New Futures Contract
+          update: Edit Futures Contract
+      hedge_to_arrive:
+        contracts:
+          create: New Hedge-to-Arrive Contract
+          edit: Edit Hedge-to-Arrive Contract
+          new: New Hedge-to-Arrive Contract
+          update: Edit Hedge-to-Arrive Contract
+    crops:
+      index: Crop Planner
+    delivery_locations:
+      create: New Delivery Location
+      edit: Edit Delivery Location
+      index: Delivery Locations
+      new: New Delivery Location
+      update: Edit Delivery Location
+    education_articles:
+      index: All Education Articles
+      show: "%{title}"
+    education_categories:
+      show: "Education Articles - %{title}"
+    fields:
+      create: New Field
+      edit: Edit Field
+      index: Fields
+      new: New Field
+      update: Edit Field
+    inputs:
+      index: Inputs
+      copy: Copy Inputs
+    marketing_plans:
+      index: Marketing Plan
+    matrix:
+      index: Farm Risk Matrix | Harvest Profit
+    news_articles:
+      index: News Articles
+      show: "%{title}"
+    pages:
+      about_us: About Harvest Profit
+      course: Farm Finance & Risk Management Course
+      dashboard: Dashboard
+      demo: Harvest Profit Software Demo
+      markets: Markets
+      pricing: Harvest Profit Software Pricing
+      launch: Increase Your Farm's Profitability in 2017
+    recommendations:
+      index: Recommendations
+      show: "%{title}"
+    results:
+      all: Profit & Loss - All Years
+      detailed: Profit & Loss Breakdown by Crop
+      show: Profit & Loss by Field

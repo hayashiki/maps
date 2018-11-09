@@ -1,0 +1,174 @@
+// Overwrite any bootstrap defaults here to make them apply to the
+// entire application, or before you @import this file
+// https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
+
+//
+// BOOTSTRAP VARIABLES
+// Any variables you want bootstrap to use across the app can should go in this file
+//
+@import './variables';
+
+//
+// BOOTSTRAP
+//
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/button-group';
+@import '~bootstrap/scss/card';
+@import '~bootstrap/scss/dropdown';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/input-group';
+@import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/nav';
+@import '~bootstrap/scss/navbar';
+@import '~bootstrap/scss/popover';
+@import '~bootstrap/scss/tables';
+@import '~bootstrap/scss/transitions';
+@import '~bootstrap/scss/utilities';
+
+
+// Right now there's now way around our default input styles in development.
+// Production isn't affected
+.nav-link {
+  @include hover {
+    color: $link-hover-color;
+    text-decoration: none;
+  }
+  background-color: transparent; // Remove the gray background on active links in IE 10.
+  color: $link-color;
+  text-decoration: none;
+}
+
+// Bold navigation tabs
+.nav-tabs {
+  .nav-link {
+    &.active {
+      font-weight: bold;
+    }
+  }
+
+  .nav-item:first-child .nav-link  {
+    padding-left: 0 !important;
+  }
+}
+
+.main-navigation {
+  .nav-link {
+    &.active {
+      background-color: $dark;
+
+      .text-dark {
+        color: $light !important;
+      }
+    }
+
+    &:not(.active):not(.bg-primary):hover {
+      background-color: lighten(#eee, 3%);
+    }
+  }
+}
+
+// sass-lint:disable no-important
+.form-control {
+  background-color: $input-bg !important;
+  border: $input-border-width solid $input-border-color;
+  border-radius: $input-border-radius;
+  color: $input-color !important;
+  font-size: $font-size-base !important;
+  outline: inherit !important;
+  padding: $input-padding-y $input-padding-x !important;
+}
+// sass-lint:enable no-important
+
+.no-transition {
+  transition: none;
+}
+
+.dropdown-menu.bg-dark {
+  background-color: $dark;
+  min-width: 120%;
+
+  .dropdown-item {
+    min-width: 160px;
+  }
+
+  input[type=text] {
+    background-color: transparent !important;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid $light;
+    color: $light !important;
+    outline: none !important;
+  }
+
+  .dropdown-panel {
+    background-color: $dark;
+    text-transform: none;
+  }
+
+  .dropdown-panel-light {
+    background-color: lighten($dark, 5%);
+    text-transform: none;
+  }
+
+  .dropdown-header {
+    background-color: lighten($dark, 5%);
+  }
+
+  button.dropdown-item {
+    background-color: $dark;
+    color: $light;
+
+    &:not(.no-hover):hover {
+      background-color: darken($dark, 5%);
+    }
+
+    &.clear-button {
+      background-color: darken($dark, 5%);
+    }
+  }
+}
+
+.dropdown-header {
+  font-size: 11px;
+}
+
+.btn-back {
+  @include button-variant(lighten($blue, 30%), lighten($blue, 30%));
+  border-radius: 7px;
+  border: 0;
+  color: $blue;
+
+  &:hover,
+  &:active,
+  &.active {
+    color: $blue !important;
+  }
+}
+
+.card.bg-danger {
+  background-color: #fff4f1 !important;
+}
+
+.card.bg-warning {
+  background-color: #ffeac8 !important;
+}
+
+.table th {
+  border-top: 0;
+}
+
+.card-header {
+  color: $gray-600;
+  background-color: transparent;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.text-orange {
+  color: orange;
+}

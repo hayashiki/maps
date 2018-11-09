@@ -1,0 +1,28 @@
+options:
+  config-file: ../../../.sass-lint.yml
+files:
+  include:
+    - '**/*.?(s)+(a|c)ss'
+rules:
+  # We only want class names in SASS/SCSS modules
+  class-name-format:
+    - 1
+    -
+      convention: 'camelcase'
+  # We allow duplicate "composes" properties
+  no-duplicate-properties:
+  - 1
+  -
+    exclude:
+      - 'composes'
+  # We ignore the spelling of "composes"
+  no-misspelled-properties:
+    - 1
+    -
+      extra-properties:
+        - 'composes'
+  # We ignore the ordered attribute of the "composes" declaration
+  property-sort-order:
+    - 1
+    -
+      ignore-custom-properties: true

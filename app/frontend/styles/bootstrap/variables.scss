@@ -1,0 +1,43 @@
+$border-radius: 4px;
+
+$primary: #3e93ff;
+$blue: #3e93ff;
+$btn-disabled-opacity: .5; // 0.65
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+//
+// CUSTOM VARIABLES / OVERRIDES
+// If you have specific overrides or custom variables, add them here
+//
+$box-shadow-sm-md: 0px 2px 6px -2px rgba(50, 50, 50, 0.2);
+
+$nav-tabs-link-active-bg: transparent;
+$nav-tabs-link-active-border-color: transparent transparent $gray-600;
+$input-group-addon-border-color: #bebebe;
+//
+// SHADOW CLASSES
+//
+.shadow-none {
+  box-shadow: none;
+}
+
+.shadow-sm {
+  box-shadow: $box-shadow-sm;
+}
+
+.shadow {
+  box-shadow: $box-shadow;
+}
+
+.shadow-lg {
+  box-shadow: $box-shadow-lg;
+}
+
+//
+// MIXIN OVERRIDES
+// Some of these use the shadow classes, so be careful!
+//
+@import './mixins';

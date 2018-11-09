@@ -1,0 +1,177 @@
+{
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev",
+    "papertrail:choklad",
+    "pusher:sandbox",
+    "rollbar:free",
+    "sendgrid:starter"
+  ],
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-apt" },
+    { "url": "https://github.com/heroku/heroku-buildpack-activestorage-preview" },
+    { "url": "heroku/nodejs" },
+    { "url": "heroku/ruby" }
+  ],
+  "env": {
+    "ACTIVE_STORAGE_KEY_ID": {
+      "description": "The S3 Key ID for Rails Active Storage",
+      "required": false
+    },
+    "ACTIVE_STORAGE_SECRET_ACCESS_KEY": {
+      "description": "The S3 Secret Access Key for Rails Active Storage",
+      "required": false
+    },
+    "ACTIVE_STORAGE_REGION": {
+      "description": "The S3 Storage Region for Rails Active Storage",
+      "required": false
+    },
+    "ACTIVE_STORAGE_BUCKET": {
+      "description": "The S3 Storage Bucket for Rails Active Storage",
+      "required": false
+    },
+    "ASSET_HOST": {
+      "description": "The host used to serve static assets. The HOST value will be used if not set.",
+      "required": false
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "AWS access key for uploading blog post images",
+      "required": true
+    },
+    "AWS_BUCKET": {
+      "description": "AWS S3 bucket name for uploading blog post images",
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "AWS secret key for uploading blog post images",
+      "required": true
+    },
+    "AWS_REGION": {
+      "description": "AWS S3 region for uploading blog post images",
+      "required": true
+    },
+    "BARCHART_API_KEY": {
+      "description": "The barchart.com API key.",
+      "required": true
+    },
+    "DEFAULT_FROM_EMAIL": {
+      "description": "The default email address to send emails from the app.",
+      "required": true
+    },
+    "DRIP_ACCOUNT_ID": {
+      "description": "The Drip Account ID that should be used for tracking drip tags",
+      "required": true
+    },
+    "DRIP_API_KEY": {
+      "description": "The Drip API Key that should be used for tracking drip tags",
+      "required": true
+    },
+    "FACEBOOK_PIXEL_ID": {
+      "description": "The Facebook Pixel ID that should be used for facebook analytics",
+      "required": true
+    },
+    "FB_APP_ID": {
+      "description": "The Facebook App ID that should be used for retrieving data sent by facebook webooks",
+      "required": true
+    },
+    "FB_APP_SECRET": {
+      "description": "The Facebook App Secret that should be used for retrieving data sent by facebook webooks",
+      "required": true
+    },
+    "FB_APP_TOKEN": {
+      "description": "The Facebook App Token that should be used for retrieving data sent by facebook webooks",
+      "required": true
+    },
+    "FB_PAGE_ID": {
+      "description": "The Facebook App Page ID that should be used for retrieving data sent by facebook webooks",
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "NODE_OPTIONS": {
+      "description": "Node options to use during the build process",
+      "required": true
+    },
+    "NPM_TOKEN": {
+      "description": "The NPM Token for authenticating against NPM",
+      "required": true
+    },
+    "RACK_ENV": {
+      "description": "The Rails environment",
+      "required": true,
+      "value": "production"
+    },
+    "RAILS_ENV": {
+      "description": "The Rails environment",
+      "required": true,
+      "value": "production"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "This is enabled so you can point a CDN to your Rails app for serving static assets. Set ASSET_HOST to start using your CDN to cache static assets. Example: ASSET_HOST=abc123.cloudfront.net",
+      "required": true,
+      "value": "enabled"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "The base token to use for verifying the integrity of your app's session cookies.",
+      "generator": "secret",
+      "required": true
+    },
+    "SENTRY_AUTH_TOKEN": {
+      "description": "The Sentry Auth token for uploading sourcemaps",
+      "required": true
+    },
+    "STRIPE_PUBLISHABLE_KEY": {
+      "description": "The Stripe Publishable Key that should be used for billing",
+      "required": true
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "The Stripe Secret Key that should be used for billing",
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake db:schema:load db:seed"
+  },
+  "stack": "heroku-18",
+  "environments": {
+    "test": {
+      "env": {
+        "HEROKU_APP_NAME": {
+          "required": false
+        }
+      },
+      "addons":[
+        "heroku-postgresql:hobby-dev",
+        "heroku-redis:hobby-dev"
+      ],
+      "buildpacks": [
+        { "url": "https://github.com/heroku/heroku-buildpack-apt" },
+        { "url": "heroku/nodejs" },
+        { "url": "heroku/ruby" },
+        { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" },
+        { "url": "https://github.com/heroku/heroku-buildpack-chromedriver" }
+      ],
+      "formation": {
+        "test": {
+          "quantity": 1,
+          "size": "performance-m"
+        }
+      },
+      "scripts": {
+        "test-setup": "rails db:seed && rails assets:precompile",
+        "test": "bundle exec rspec --tag @type:system -f RspecTap::Formatter"
+      }
+    }
+  }
+}

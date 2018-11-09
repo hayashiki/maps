@@ -1,0 +1,29 @@
+# This file is meant to be used with artillery
+# Run `yarn global add artillery` to install artillery
+# Run `artillery run artillery.yml`
+#
+# If you want to output and view an artillery barrage, try:
+# - `artillery run artiller.yml --output results`
+# - `artillery report results`
+
+config:
+  target: 'https://staging.harvestprofit.com'
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      rampTo: 50
+      name: "Warm up the application"
+    - duration: 120
+      arrivalRate: 50
+      name: "Sustained max load"
+scenarios:
+  - name: "Home page and blog"
+    flow:
+      - get:
+          url: "/"
+      - get:
+          url: "/blog/fake-blog-post-test"
+      - get:
+          url: "/blog"
+      - get:
+          url: "/matrix"

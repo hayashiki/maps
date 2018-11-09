@@ -1,0 +1,126 @@
+version: 2
+jobs:
+  rspec:
+    docker:
+      - image: circleci/ruby:2.5.3-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: harvest-profit
+          RAILS_ENV: test
+          CODECOV_FLAG: ruby
+      - image: circleci/postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: harvest-profit
+          POSTGRES_DB: harvest_test
+          POSTGRES_PASSWORD: ""
+    parallelism: 2
+    steps:
+      - checkout
+
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - marketingplan-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - marketingplan-bundle-v2-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: marketingplan-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - restore_cache:
+          keys:
+            - asset-cache-{{ arch }}-{{ .Branch }}
+            - asset-cache
+
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out test_results/rspec/results.xml \
+                            --format progress \
+                            --tag ~@type:system \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings --timings-type=classname)
+
+      - save_cache:
+          key: asset-cache-{{ arch }}-{{ .Branch }}
+          paths:
+            - public/packs
+            - public/assets
+            - tmp/cache/assets/sprockets
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+
+  jest:
+    docker:
+      - image: circleci/node:10
+    steps:
+      # Use the NPM registry
+      - run:
+          name: Add NPM_TOKEN
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+
+      - checkout
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - marketingplan-yarn-{{ checksum "yarn.lock" }}
+            - marketingplan-yarn-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: marketingplan-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # run jest tests
+      - run:
+          name: Jest Suite
+          command: yarn run test-coverage --maxWorkers=2 --ci
+          environment:
+            JEST_JUNIT_OUTPUT: "test_results/js-test-results.xml"
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+      - run:
+          name: Upload Coverage Report
+          command: bash <(curl -s https://codecov.io/bash) -cF javascript
+
+workflows:
+  version: 2
+  rspec:
+    jobs:
+      - rspec
+  jest:
+    jobs:
+      - jest
