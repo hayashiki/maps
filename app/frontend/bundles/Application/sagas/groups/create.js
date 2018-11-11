@@ -3,6 +3,7 @@ import { call, put, select, take } from 'redux-saga/effects';
 
 import {
   GROUPS_REQUEST_CREATE,
+  GROUPS_REQUEST_RESET,
   GROUPS_REQUEST_CREATE_SUCCESS,
   GROUPS_REQUEST_FAILURE,
 } from '../../actions/groups';
@@ -16,6 +17,7 @@ import Api from '../../utilities/Api';
 function* createGroups() {
   const groupsToCreate = yield select(getNewGroups);
   yield put({ type: GROUPS_UPDATING });
+  yield put({ type: GROUPS_REQUEST_RESET });
   for (let index = 0; index < groupsToCreate.length; index += 1) {
     try {
       const groupToCreate = groupsToCreate[index];

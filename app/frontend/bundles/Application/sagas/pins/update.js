@@ -3,6 +3,7 @@ import { call, put, select, take } from 'redux-saga/effects';
 
 import {
   PINS_REQUEST_UPDATE,
+  PINS_REQUEST_RESET,
   PINS_REQUEST_UPDATE_SUCCESS,
   PINS_REQUEST_FAILURE,
 } from '../../actions/pins';
@@ -17,6 +18,7 @@ function* updatePins(id) {
   const pinsToUpdate = yield select(getUpdatedPins, id);
   const pinIds = yield call(_.map, pinsToUpdate, 'id');
   yield put({ type: PINS_UPDATING, pin_ids: pinIds });
+  yield put({ type: PINS_REQUEST_RESET });
   for (let index = 0; index < pinsToUpdate.length; index += 1) {
     try {
       const pinToUpdate = pinsToUpdate[index];

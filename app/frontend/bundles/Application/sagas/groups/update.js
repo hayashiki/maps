@@ -3,6 +3,7 @@ import { call, put, select, take } from 'redux-saga/effects';
 
 import {
   GROUPS_REQUEST_UPDATE,
+  GROUPS_REQUEST_RESET,
   GROUPS_REQUEST_UPDATE_SUCCESS,
   GROUPS_REQUEST_FAILURE,
 } from '../../actions/groups';
@@ -17,6 +18,7 @@ function* updateGroups(id) {
   const groupsToUpdate = yield select(getUpdatedGroups, id);
   const groupIds = yield call(_.map, groupsToUpdate, 'id');
   yield put({ type: GROUPS_UPDATING, group_ids: groupIds });
+  yield put({ type: GROUPS_REQUEST_RESET });
   for (let index = 0; index < groupsToUpdate.length; index += 1) {
     try {
       const groupToUpdate = groupsToUpdate[index];

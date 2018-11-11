@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
 import Loading from './shared/Loading';
+import GoogleMap from './maps/GoogleMap';
 
 export default class MainMap extends Component {
   static propTypes = {
@@ -27,6 +28,7 @@ export default class MainMap extends Component {
         <Row>
           <Col xs="12">
             <h1>Loaded data.</h1>
+            <GoogleMap />
           </Col>
         </Row>
       </Container>

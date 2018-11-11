@@ -4,7 +4,7 @@ import { call, put, take } from 'redux-saga/effects';
 import {
   GROUPS_REQUEST_FETCH,
   GROUPS_REQUEST_RESET,
-  GROUPS_REQUEST_SUCCESS,
+  GROUPS_REQUEST_FETCH_SUCCESS,
   GROUPS_REQUEST_FAILURE,
 } from '../../actions/groups';
 import {
@@ -28,11 +28,11 @@ function* fetchGroups() {
     const total = yield _.toNumber(response.headers.total);
     const perPage = yield _.toNumber(response.headers['per-page']);
     const pages = yield Math.ceil(total / perPage);
-    yield put({ type: GROUPS_REQUEST_SUCCESS, payload: response.data });
+    yield put({ type: GROUPS_REQUEST_FETCH_SUCCESS, payload: response.data });
 
     for (let page = 2; page <= pages; page += 1) {
       const r = yield call(getGroupsApi, page);
-      yield put({ type: GROUPS_REQUEST_SUCCESS, payload: r.data });
+      yield put({ type: GROUPS_REQUEST_FETCH_SUCCESS, payload: r.data });
     }
   } catch (error) {
     if (error.response && error.response.data) {

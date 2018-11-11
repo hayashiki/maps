@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <%= javascript_pack_tag 'applications-bundle' %>
+  <%= stylesheet_pack_tag 'applications-bundle' %>
+  <%= yield :head %>
+  <%= render "layouts/shared/favicon" %>
 </head>
 <body>
   <%= yield %>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_KEY'] %>&callback=initMap" async defer></script>
 </body>
 </html>

@@ -29,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/map" component={MainMap} />
+        <Route exact path="/" component={MainMap} />
       </Switch>
     );
   }

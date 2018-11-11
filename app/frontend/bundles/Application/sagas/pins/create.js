@@ -3,6 +3,7 @@ import { call, put, select, take } from 'redux-saga/effects';
 
 import {
   PINS_REQUEST_CREATE,
+  PINS_REQUEST_RESET,
   PINS_REQUEST_CREATE_SUCCESS,
   PINS_REQUEST_FAILURE,
 } from '../../actions/pins';
@@ -16,6 +17,7 @@ import Api from '../../utilities/Api';
 function* createPins() {
   const pinsToCreate = yield select(getNewPins);
   yield put({ type: PINS_UPDATING });
+  yield put({ type: PINS_REQUEST_RESET });
   for (let index = 0; index < pinsToCreate.length; index += 1) {
     try {
       const pinToCreate = pinsToCreate[index];

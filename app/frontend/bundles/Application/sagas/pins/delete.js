@@ -2,6 +2,7 @@ import { call, put, select, take } from 'redux-saga/effects';
 
 import {
   PINS_REQUEST_DELETE,
+  PINS_REQUEST_RESET,
   PINS_REQUEST_DELETE_SUCCESS,
   PINS_REQUEST_FAILURE,
 } from '../../actions/pins';
@@ -15,6 +16,7 @@ import Api from '../../utilities/Api';
 export function* deletePins() {
   const pinsToDelete = yield select(getDeletedPins);
   yield put({ type: PINS_UPDATING });
+  yield put({ type: PINS_REQUEST_RESET });
   for (let index = 0; index < pinsToDelete.length; index += 1) {
     try {
       const pinToDelete = pinsToDelete[index];
